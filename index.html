@@ -141,19 +141,43 @@
       color: #444;
     }
 
+    /* Custom button styles */
     .setup-box a {
       display: inline-block;
       padding: 10px 20px;
-      background: #4b56e9;
       color: white;
       text-decoration: none;
       border-radius: 8px;
       margin-top: 10px;
+      font-weight: 600;
       transition: background 0.3s ease;
     }
 
-    .setup-box a:hover {
-      background: #3742fa;
+    .btn-windows {
+      background-color: #2196f3;
+      box-shadow: 0 4px 6px rgba(33, 150, 243, 0.3);
+    }
+
+    .btn-windows:hover {
+      background-color: #1976d2;
+    }
+
+    .btn-android {
+      background-color: #4caf50;
+      box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);
+    }
+
+    .btn-android:hover {
+      background-color: #388e3c;
+    }
+
+    .btn-ios {
+      background-color: #ff9800;
+      box-shadow: 0 4px 6px rgba(255, 152, 0, 0.3);
+    }
+
+    .btn-ios:hover {
+      background-color: #f57c00;
     }
 
     .bookmarklet {
@@ -207,19 +231,19 @@
     <div class="setup-box">
       <h3><i class="fab fa-windows"></i> Windows Setup</h3>
       <p>Complete guide to install and configure on Windows devices.</p>
-      <a href="#"><i class="fas fa-play"></i> Watch Setup Video</a>
+      <a href="#" class="btn-windows"><i class="fas fa-play"></i> Watch Setup Video</a>
     </div>
 
     <div class="setup-box">
       <h3><i class="fab fa-android"></i> Android Setup</h3>
       <p>Step-by-step instructions for Android smartphones and tablets.</p>
-      <a href="#"><i class="fas fa-play"></i> Watch Setup Video</a>
+      <a href="#" class="btn-android"><i class="fas fa-play"></i> Watch Setup Video</a>
     </div>
 
     <div class="setup-box">
       <h3><i class="fab fa-apple"></i> iOS Setup</h3>
       <p>Installation guide for iPhone and iPad users.</p>
-      <a href="#"><i class="fas fa-play"></i> Watch Setup Video</a>
+      <a href="#" class="btn-ios"><i class="fas fa-play"></i> Watch Setup Video</a>
     </div>
   </div>
 
