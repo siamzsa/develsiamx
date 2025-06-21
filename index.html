@@ -1,216 +1,161 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
   <meta charset="UTF-8" />
-  <title>🚀 Pro-Level Binary Future Signal Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Binary Trading</title>
   <style>
     body {
-      background-color: #0a1f10;
-      color: #00ff99;
-      font-family: 'Courier New', monospace;
-      padding: 20px;
-      max-width: 700px;
-      margin: auto;
+      margin: 0;
+      font-family: sans-serif;
+      background: #f0f0f0;
     }
-    h2 {
-      text-align: center;
-      text-shadow: 0 0 15px #00ff99;
-      margin-bottom: 25px;
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #222;
+      color: #fff;
+      padding: 10px 20px;
     }
-    label {
-      display: block;
-      margin-top: 18px;
-      font-weight: bold;
-      font-size: 16px;
-    }
-    select {
-      width: 100%;
-      padding: 14px;
-      font-size: 16px;
-      background: #02321e;
-      border: 1.8px solid #00ff99;
-      border-radius: 10px;
-      color: #00ff99;
-      margin-top: 8px;
-      box-sizing: border-box;
-      transition: border-color 0.3s ease;
-    }
-    select:hover {
-      border-color: #00cc66;
-    }
-    button {
-      width: 100%;
-      margin-top: 25px;
-      padding: 16px;
-      font-size: 20px;
-      font-weight: 900;
-      color: #000;
-      background: linear-gradient(45deg, #00ff99, #00cc66);
-      border: none;
-      border-radius: 15px;
+    header .balance-display {
       cursor: pointer;
-      box-shadow: 0 0 20px #00ff99bb;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      letter-spacing: 1.2px;
+      font-weight: bold;
     }
-    button:hover {
-      transform: scale(1.08);
-      box-shadow: 0 0 30px #00ff99ee;
+    .chart-area {
+      width: 100%;
+      height: 300px;
+      background: #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #555;
     }
-    .signal-box {
-      background: #022914;
-      border-left: 8px solid #00ff99;
-      margin-top: 18px;
-      padding: 18px 20px;
-      border-radius: 14px;
-      font-size: 15px;
-      box-shadow: 0 0 12px #00ff9988;
-      animation: fadeIn 0.7s ease forwards;
-      line-height: 1.4;
-      letter-spacing: 0.6px;
-      user-select: none;
+    .controls {
+      padding: 20px;
+      background: #fff;
     }
-    .sell {
-      border-left-color: #ff4d4d;
-      color: #ff9999;
-      box-shadow: 0 0 12px #ff4d4daa;
+    .controls select, .controls input {
+      padding: 8px;
+      margin-right: 10px;
+      margin-bottom: 10px;
     }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+    .controls button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      background: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+    }
+    .controls button.sell {
+      background: #dc3545;
+    }
+    footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #222;
+      color: #fff;
+      display: flex;
+      justify-content: space-around;
+      padding: 10px 0;
+    }
+    footer div {
+      cursor: pointer;
+    }
+    .amount-display {
+      font-size: 14px;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <h2>🚀 Pro-Level Binary Future Signal Bot</h2>
 
-  <label for="market">Select Market</label>
-  <select id="market">
-    <option value="EUR/USD">EUR/USD</option>
-    <option value="GBP/JPY">GBP/JPY</option>
-    <option value="USD/JPY">USD/JPY</option>
-    <option value="AUD/USD">AUD/USD</option>
-    <option value="BTC/USD">BTC/USD</option>
-    <option value="ETH/USD">ETH/USD</option>
+<header>
+  <div>
+    <div class="balance-display" id="balanceType">Demo</div>
+    <div class="amount-display" id="balanceAmount">$10000</div>
+  </div>
+  <div class="right-icons">
+    <span>Binary Trading</span>
+  </div>
+</header>
+
+<div class="chart-area">
+  📈 Market Chart (তুমি এখানে চার্ট যোগ করবে)
+</div>
+
+<div class="controls">
+  <select id="timeframe">
+    <option value="1m">1 Minute</option>
+    <option value="5m">5 Minutes</option>
+    <option value="15m">15 Minutes</option>
   </select>
 
-  <button onclick="generateSignals()">Generate 5 Future Signals</button>
+  <input type="number" id="amount" placeholder="Amount ($)" min="1" />
 
-  <div id="signalContainer"></div>
+  <button id="buyBtn">Buy</button>
+  <button class="sell" id="sellBtn">Sell</button>
+</div>
 
-  <script>
-    // ক্যান্ডেলস্টিক প্যাটার্নগুলো
-    const candlePatterns = [
-      {name: "Bullish Engulfing", signal: "Buy"},
-      {name: "Bearish Engulfing", signal: "Sell"},
-      {name: "Hammer", signal: "Buy"},
-      {name: "Shooting Star", signal: "Sell"},
-      {name: "Doji", signal: "Neutral"},
-      {name: "Morning Star", signal: "Buy"},
-      {name: "Evening Star", signal: "Sell"},
-      {name: "Tweezer Bottom", signal: "Buy"},
-      {name: "Tweezer Top", signal: "Sell"},
-      {name: "Harami", signal: "Buy/Sell"}
-    ];
+<footer>
+  <div id="home">🏠 Home</div>
+  <div id="support">📞 Support</div>
+</footer>
 
-    // ইনডিকেটর সমূহ
-    const indicatorSignals = [
-      {name: "RSI Oversold", signal: "Buy"},
-      {name: "RSI Overbought", signal: "Sell"},
-      {name: "MACD Bullish Cross", signal: "Buy"},
-      {name: "MACD Bearish Cross", signal: "Sell"},
-      {name: "Moving Average Bullish Crossover", signal: "Buy"},
-      {name: "Moving Average Bearish Crossover", signal: "Sell"},
-      {name: "Stochastic Oversold", signal: "Buy"},
-      {name: "Stochastic Overbought", signal: "Sell"},
-      {name: "Bollinger Bands Lower Breakout", signal: "Buy"},
-      {name: "Bollinger Bands Upper Breakout", signal: "Sell"},
-      {name: "ATR Volatility Spike (High)", signal: "Sell"},
-      {name: "ATR Volatility Spike (Low)", signal: "Buy"},
-      
-      // নতুন প্রফেশনাল ইনডিকেটর
-      {name: "Ichimoku Cloud Bullish", signal: "Buy"},
-      {name: "Ichimoku Cloud Bearish", signal: "Sell"},
-      {name: "ADX Strong Trend (Positive)", signal: "Buy"},
-      {name: "ADX Strong Trend (Negative)", signal: "Sell"},
-      {name: "ADX Weak Trend", signal: "Neutral"},
-      {name: "CCI Oversold", signal: "Buy"},
-      {name: "CCI Overbought", signal: "Sell"},
-      {name: "Parabolic SAR Bullish Reversal", signal: "Buy"},
-      {name: "Parabolic SAR Bearish Reversal", signal: "Sell"},
-      {name: "Volume Spike (High Buying)", signal: "Buy"},
-      {name: "Volume Spike (High Selling)", signal: "Sell"},
-      {name: "EMA Fast Cross Over Slow", signal: "Buy"},
-      {name: "EMA Fast Cross Under Slow", signal: "Sell"}
-    ];
+<script>
+  let currentBalanceType = "demo";
+  let balances = {
+    demo: 10000,
+    live: 0
+  };
 
-    function randomChoice(arr) {
-      return arr[Math.floor(Math.random() * arr.length)];
+  const balanceType = document.getElementById("balanceType");
+  const balanceAmount = document.getElementById("balanceAmount");
+
+  balanceType.ondblclick = function() {
+    if (currentBalanceType === "demo") {
+      currentBalanceType = "live";
+    } else {
+      currentBalanceType = "demo";
     }
+    updateBalanceDisplay();
+  };
 
-    function formatTime(minOffset) {
-      const d = new Date();
-      d.setMinutes(d.getMinutes() + minOffset);
-      let h = d.getHours().toString().padStart(2, "0");
-      let m = d.getMinutes().toString().padStart(2, "0");
-      return `${h}:${m}`;
+  function updateBalanceDisplay() {
+    if (currentBalanceType === "demo") {
+      balanceType.textContent = "Demo";
+      balanceAmount.textContent = `$${balances.demo}`;
+    } else {
+      balanceType.textContent = "Live";
+      balanceAmount.textContent = `$${balances.live}`;
     }
+  }
 
-    function generateSignals() {
-      const market = document.getElementById("market").value;
-      const container = document.getElementById("signalContainer");
-      container.innerHTML = "";
+  document.getElementById("buyBtn").onclick = function() {
+    const timeframe = document.getElementById("timeframe").value;
+    const amount = document.getElementById("amount").value;
+    alert(`Buy Signal\nTimeframe: ${timeframe}\nAmount: $${amount}`);
+  };
 
-      const totalSignals = 5;
+  document.getElementById("sellBtn").onclick = function() {
+    const timeframe = document.getElementById("timeframe").value;
+    const amount = document.getElementById("amount").value;
+    alert(`Sell Signal\nTimeframe: ${timeframe}\nAmount: $${amount}`);
+  };
 
-      for(let i=0; i < totalSignals; i++) {
-        setTimeout(() => {
-          let candle = randomChoice(candlePatterns);
-          let indicator = randomChoice(indicatorSignals);
+  document.getElementById("home").onclick = function() {
+    alert("You clicked Home");
+  };
 
-          let candleSignal = candle.signal;
-          if(candleSignal === "Buy/Sell") {
-            candleSignal = Math.random() > 0.5 ? "Buy" : "Sell";
-          }
+  document.getElementById("support").onclick = function() {
+    alert("You clicked Support");
+  };
 
-          if(candleSignal === "Neutral" || candleSignal === undefined) {
-            candleSignal = indicator.signal;
-          }
+  // Initial display
+  updateBalanceDisplay();
+</script>
 
-          // যদি দুইটি সিগনাল একই হয় তবে সেটি ফাইনাল
-          // নাহলে র‍্যান্ডমলি একটা নেয়া হবে
-          let finalSignal;
-          if(candleSignal === indicator.signal) {
-            finalSignal = candleSignal;
-          } else if (indicator.signal === "Neutral") {
-            finalSignal = candleSignal;
-          } else {
-            finalSignal = Math.random() > 0.5 ? candleSignal : indicator.signal;
-          }
-
-          const reason = `Pattern: ${candle.name} + Indicator: ${indicator.name}`;
-
-          const signalBox = document.createElement("div");
-          signalBox.classList.add("signal-box");
-          if(finalSignal === "Sell") signalBox.classList.add("sell");
-
-          signalBox.innerHTML = `
-            <strong>${finalSignal} Signal</strong><br>
-            ⏰ Time: ${formatTime(i)}<br>
-            💱 Market: ${market}<br>
-            🧠 Reason: ${reason}
-          `;
-
-          container.appendChild(signalBox);
-        }, i * 1200);  // ১.২ সেকেন্ড ইন্টারভাল, দেখতে ভালো লাগে
-      }
-    }
-  </script>
 </body>
 </html>
