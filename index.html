@@ -6,26 +6,31 @@
   <title>ZED Express</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@popmotion/popmotion/dist/popmotion.global.min.js"></script>
+  <style>
+    body {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="bg-gray-50 text-gray-800">
 
   <!-- HEADER -->
   <header class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center p-4">
       <h1 class="text-2xl font-bold text-blue-600 animate-pulse">ZED Express</h1>
-      <nav class="space-x-4">
+      <nav class="flex flex-wrap space-x-4 text-sm sm:text-base mt-2 sm:mt-0">
         <a href="#" class="hover:text-blue-500 transition">Home</a>
-        <a href="#" class="hover:text-blue-500 transition">Products</a>
-        <a href="#" class="hover:text-blue-500 transition">Contact</a>
+        <a href="#products" class="hover:text-blue-500 transition">Products</a>
+        <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
       </nav>
     </div>
   </header>
 
   <!-- HERO SECTION -->
-  <section class="relative bg-gradient-to-r from-blue-100 to-blue-300 py-16 overflow-hidden">
-    <div class="max-w-7xl mx-auto text-center">
-      <h2 class="text-4xl font-bold mb-4 animate-bounce">Discover Top Products at ZED Express</h2>
-      <p class="text-lg mb-6">Shop quality items at the best prices. Your satisfaction is our priority.</p>
+  <section class="relative bg-gradient-to-r from-blue-100 to-blue-300 py-16 text-center overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4 animate-bounce">Discover Top Products at ZED Express</h2>
+      <p class="text-base sm:text-lg mb-6">Shop quality items at the best prices. Your satisfaction is our priority.</p>
       <button id="heroButton" class="bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-105">
         Shop Now
       </button>
@@ -33,58 +38,63 @@
   </section>
 
   <!-- PRODUCT GRID -->
-  <section class="max-w-7xl mx-auto py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+  <section id="products" class="max-w-7xl mx-auto py-12 px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
 
-    <!-- PRODUCT CARD TEMPLATE -->
+    <!-- PRODUCT CARD -->
     <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 1">
-      <h3 class="font-semibold text-xl mb-2">Product 1</h3>
-      <p class="text-gray-600 mb-2">High quality product description</p>
-      <p class="font-bold text-blue-600 mb-4">$15.00</p>
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 1">
+      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 1</h3>
+      <p class="text-gray-600 mb-1">High quality product description</p>
+      <p class="font-bold text-blue-600 mb-3">$15.00</p>
       <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
     </div>
 
     <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 2">
-      <h3 class="font-semibold text-xl mb-2">Product 2</h3>
-      <p class="text-gray-600 mb-2">Durable and stylish design</p>
-      <p class="font-bold text-blue-600 mb-4">$25.00</p>
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 2">
+      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 2</h3>
+      <p class="text-gray-600 mb-1">Durable and stylish design</p>
+      <p class="font-bold text-blue-600 mb-3">$25.00</p>
       <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
     </div>
 
     <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 3">
-      <h3 class="font-semibold text-xl mb-2">Product 3</h3>
-      <p class="text-gray-600 mb-2">Modern and lightweight</p>
-      <p class="font-bold text-blue-600 mb-4">$30.00</p>
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 3">
+      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 3</h3>
+      <p class="text-gray-600 mb-1">Modern and lightweight</p>
+      <p class="font-bold text-blue-600 mb-3">$30.00</p>
       <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
     </div>
 
     <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 4">
-      <h3 class="font-semibold text-xl mb-2">Product 4</h3>
-      <p class="text-gray-600 mb-2">Eco-friendly material</p>
-      <p class="font-bold text-blue-600 mb-4">$20.00</p>
-      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
-    </div>
-
-    <!-- ADD MORE PRODUCTS EASILY -->
-    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 5">
-      <h3 class="font-semibold text-xl mb-2">Product 5</h3>
-      <p class="text-gray-600 mb-2">Exclusive premium item</p>
-      <p class="font-bold text-blue-600 mb-4">$45.00</p>
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 4">
+      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 4</h3>
+      <p class="text-gray-600 mb-1">Eco-friendly material</p>
+      <p class="font-bold text-blue-600 mb-3">$20.00</p>
       <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
     </div>
 
     <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 6">
-      <h3 class="font-semibold text-xl mb-2">Product 6</h3>
-      <p class="text-gray-600 mb-2">Best seller item</p>
-      <p class="font-bold text-blue-600 mb-4">$35.00</p>
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 5">
+      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 5</h3>
+      <p class="text-gray-600 mb-1">Exclusive premium item</p>
+      <p class="font-bold text-blue-600 mb-3">$45.00</p>
       <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
     </div>
 
+    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 6">
+      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 6</h3>
+      <p class="text-gray-600 mb-1">Best seller item</p>
+      <p class="font-bold text-blue-600 mb-3">$35.00</p>
+      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
+    </div>
+
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="bg-white py-8 text-center shadow-inner">
+    <h3 class="text-2xl font-bold mb-2">Contact Us</h3>
+    <p>Email: support@zedexpress.com | Phone: +123-456-7890</p>
   </section>
 
   <!-- FOOTER -->
@@ -93,7 +103,6 @@
   </footer>
 
   <script>
-    // Hero button subtle animation using Popmotion
     const { animate, spring } = window.popmotion;
     const button = document.getElementById('heroButton');
 
