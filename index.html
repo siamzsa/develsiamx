@@ -2,404 +2,84 @@
 <html lang="bn">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Binary Trading Platform</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      background: #f4f4f4;
-      color: #333;
-      overflow-x: hidden;
-    }
-
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: #1c1c1c;
-      padding: 10px 15px;
-      color: #fff;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-      position: relative;
-      z-index: 2;
-    }
-
-    .balance-display {
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 14px;
-      padding: 4px 8px;
-      border-radius: 4px;
-      transition: background 0.3s;
-      display: inline-block;
-    }
-
-    .balance-demo {
-      background: #ffc107;
-      color: #000;
-    }
-
-    .balance-live {
-      background: #28a745;
-      color: #fff;
-    }
-
-    #depositBtn {
-      background: #28a745;
-      border: none;
-      color: white;
-      font-weight: 600;
-      font-size: 14px;
-      padding: 8px 15px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    #depositBtn:hover {
-      background: #1e7e34;
-    }
-
-    .chart-area {
-      height: 600px;
-      width: 100%;
-      background: linear-gradient(135deg, #e0e0e0, #c8c8c8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 20px;
-      color: #555;
-      margin-bottom: 15px;
-    }
-
-    .control-row {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 10px;
-      background: #fff;
-    }
-
-    .control-row select,
-    .control-row input {
-      flex: 1 1 50%;
-      min-width: 80px;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-    }
-
-    .button-row {
-      display: flex;
-      gap: 10px;
-      width: 100%;
-      box-sizing: border-box;
-      padding: 10px;
-      background: #fff;
-    }
-
-    .button-row button {
-      flex: 1 1 50%;
-      padding: 10px;
-      font-size: 16px;
-      border: none;
-      border-radius: 5px;
-      color: #fff;
-      cursor: pointer;
-    }
-
-    #buyBtn {
-      background: #007bff;
-    }
-
-    #buyBtn:hover {
-      background: #0056b3;
-    }
-
-    #sellBtn {
-      background: #dc3545;
-    }
-
-    #sellBtn:hover {
-      background: #a71d2a;
-    }
-
-    footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background: #1c1c1c;
-      color: #fff;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      box-shadow: 0 -2px 4px rgba(0,0,0,0.2);
-      z-index: 2;
-    }
-
-    footer div {
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    /* Modal styles */
-    #depositModal {
-      position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(0,0,0,0.6);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      padding: 20px;
-    }
-
-    #depositModal.active {
-      display: flex;
-    }
-
-    #depositForm {
-      background: #fff;
-      width: 100%;
-      max-width: 400px;
-      border-radius: 8px;
-      padding: 20px;
-      box-sizing: border-box;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-      max-height: 90vh;
-      overflow-y: auto;
-      position: relative;
-    }
-
-    #depositForm h2 {
-      margin-top: 0;
-      margin-bottom: 15px;
-      font-weight: 700;
-      font-size: 22px;
-      color: #333;
-      text-align: center;
-    }
-
-    #depositForm label {
-      display: block;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #555;
-      margin-top: 15px;
-    }
-
-    #binanceIdDisplay {
-      background: #eee;
-      padding: 10px 15px;
-      font-size: 18px;
-      font-weight: 700;
-      color: #111;
-      border-radius: 5px;
-      user-select: all;
-    }
-
-    #depositForm input, #depositForm select {
-      width: 100%;
-      padding: 10px;
-      font-size: 16px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-
-    #confirmDepositBtn {
-      margin-top: 25px;
-      width: 100%;
-      background: #28a745;
-      color: #fff;
-      font-weight: 700;
-      padding: 12px;
-      font-size: 18px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    #confirmDepositBtn:hover {
-      background: #1e7e34;
-    }
-
-    #closeModalBtn {
-      position: absolute;
-      top: 10px;
-      right: 15px;
-      background: transparent;
-      border: none;
-      font-size: 24px;
-      cursor: pointer;
-      color: #999;
-      transition: color 0.2s;
-    }
-
-    #closeModalBtn:hover {
-      color: #333;
-    }
-
-    #confirmMessage {
-      margin-top: 15px;
-      color: #28a745;
-      font-weight: 700;
-      font-size: 18px;
-      text-align: center;
-      display: none;
-    }
-  </style>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>এস টি এম ই-কমার্স</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@popmotion/popmotion/dist/popmotion.global.min.js"></script>
 </head>
-<body>
+<body class="bg-gray-100 text-gray-800">
 
-<header>
-  <div id="balanceType" class="balance-display balance-demo">
-    Demo $10000
-  </div>
-  <div style="display: flex; align-items: center; gap: 15px;">
-    <div>📊 Binary Trading</div>
-    <button id="depositBtn">Deposit</button>
-  </div>
-</header>
+  <!-- হেডার -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto flex justify-between items-center p-4">
+      <h1 class="text-2xl font-bold text-blue-600 animate-pulse">এস টি এম</h1>
+      <nav class="space-x-4">
+        <a href="#" class="hover:text-blue-500 transition">হোম</a>
+        <a href="#" class="hover:text-blue-500 transition">প্রোডাক্টস</a>
+        <a href="#" class="hover:text-blue-500 transition">যোগাযোগ</a>
+      </nav>
+    </div>
+  </header>
 
-<div class="chart-area">
-  📈 Market Chart Placeholder
-</div>
+  <!-- হিরো সেকশন -->
+  <section class="relative bg-gradient-to-r from-blue-100 to-blue-300 py-16 overflow-hidden">
+    <div class="max-w-7xl mx-auto text-center">
+      <h2 class="text-4xl font-bold mb-4 animate-bounce">STM এর সেরা প্রোডাক্টস</h2>
+      <p class="text-lg mb-6">আমাদের কালেকশন ঘুরে দেখুন এবং সেরা প্রোডাক্ট বেছে নিন।</p>
+      <button class="bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-105">
+        এখনই কিনুন
+      </button>
+    </div>
+  </section>
 
-<div class="control-row">
-  <select id="timeframe">
-    <option value="1m">1 Minute</option>
-    <option value="5m">5 Minutes</option>
-    <option value="15m">15 Minutes</option>
-  </select>
+  <!-- প্রোডাক্টস -->
+  <section class="max-w-7xl mx-auto py-12 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 1">
+      <h3 class="font-semibold text-xl mb-2">প্রোডাক্ট ১</h3>
+      <p class="text-gray-600 mb-2">সেরা মানের প্রোডাক্ট</p>
+      <p class="font-bold text-blue-600 mb-4">৳ ১২০০</p>
+      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">কার্টে যোগ করুন</button>
+    </div>
 
-  <input type="number" id="amount" placeholder="Amount ($)" min="1"/>
-</div>
+    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 2">
+      <h3 class="font-semibold text-xl mb-2">প্রোডাক্ট ২</h3>
+      <p class="text-gray-600 mb-2">দীর্ঘস্থায়ী ব্যবহারযোগ্য</p>
+      <p class="font-bold text-blue-600 mb-4">৳ ৯৫০</p>
+      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">কার্টে যোগ করুন</button>
+    </div>
 
-<div class="button-row">
-  <button id="buyBtn">Buy</button>
-  <button id="sellBtn">Sell</button>
-</div>
+    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
+      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-4" alt="Product 3">
+      <h3 class="font-semibold text-xl mb-2">প্রোডাক্ট ৩</h3>
+      <p class="text-gray-600 mb-2">আধুনিক ডিজাইন</p>
+      <p class="font-bold text-blue-600 mb-4">৳ ১৫০০</p>
+      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">কার্টে যোগ করুন</button>
+    </div>
+  </section>
 
-<footer>
-  <div id="home">🏠 Home</div>
-  <div id="support">📞 Support</div>
-</footer>
+  <!-- ফুটার -->
+  <footer class="bg-white text-center p-4 shadow-inner">
+    &copy; ২০২৫ এস টি এম. সর্বস্বত্ব সংরক্ষিত।
+  </footer>
 
-<!-- Deposit Modal -->
-<div id="depositModal">
-  <form id="depositForm">
-    <button type="button" id="closeModalBtn" title="Close">&times;</button>
-    <h2>Deposit Funds</h2>
+  <script>
+    // Popmotion দিয়ে হিরো বাটনে subtle animation
+    const { animate, spring } = window.popmotion;
+    const button = document.querySelector('button');
 
-    <label>Binance ID</label>
-    <div id="binanceIdDisplay">1011639537</div>
-
-    <label for="depositAmount">Amount ($)</label>
-    <input type="number" id="depositAmount" name="depositAmount" placeholder="Enter amount" min="1" required />
-
-    <label for="transactionId">Transaction ID</label>
-    <input type="text" id="transactionId" name="transactionId" placeholder="Enter transaction ID" required />
-
-    <label for="referralCode">Referral Code (Optional)</label>
-    <input type="text" id="referralCode" name="referralCode" placeholder="Enter referral code" />
-
-    <button type="submit" id="confirmDepositBtn">Confirm</button>
-
-    <div id="confirmMessage">Deposit Confirmed Successfully! ✅</div>
-  </form>
-</div>
-
-<script>
-  let currentBalanceType = "demo";
-  let balances = {
-    demo: 10000,
-    live: 0
-  };
-
-  const balanceType = document.getElementById("balanceType");
-  const depositBtn = document.getElementById("depositBtn");
-  const depositModal = document.getElementById("depositModal");
-  const closeModalBtn = document.getElementById("closeModalBtn");
-  const depositForm = document.getElementById("depositForm");
-  const confirmMessage = document.getElementById("confirmMessage");
-
-  balanceType.ondblclick = function() {
-    if (currentBalanceType === "demo") {
-      currentBalanceType = "live";
-    } else {
-      currentBalanceType = "demo";
-    }
-    updateBalanceDisplay();
-  };
-
-  function updateBalanceDisplay() {
-    if (currentBalanceType === "demo") {
-      balanceType.className = "balance-display balance-demo";
-      balanceType.textContent = `Demo $${balances.demo}`;
-    } else {
-      balanceType.className = "balance-display balance-live";
-      balanceType.textContent = `Live $${balances.live}`;
-    }
-  }
-
-  depositBtn.onclick = function() {
-    confirmMessage.style.display = "none";
-    depositForm.style.display = "block";
-    depositModal.classList.add("active");
-  };
-
-  closeModalBtn.onclick = function() {
-    depositModal.classList.remove("active");
-    depositForm.reset();
-    confirmMessage.style.display = "none";
-    depositForm.style.display = "block";
-  };
-
-  depositModal.onclick = function(e) {
-    if(e.target === depositModal) {
-      depositModal.classList.remove("active");
-      depositForm.reset();
-      confirmMessage.style.display = "none";
-      depositForm.style.display = "block";
-    }
-  };
-
-  depositForm.onsubmit = function(e) {
-    e.preventDefault();
-
-    // Simple validation can be done here or just show confirmation
-
-    depositForm.style.display = "none";
-    confirmMessage.style.display = "block";
-
-    // Optionally reset form after a short delay and close modal
-    setTimeout(() => {
-      depositModal.classList.remove("active");
-      depositForm.reset();
-      confirmMessage.style.display = "none";
-      depositForm.style.display = "block";
-    }, 3000);
-  };
-
-  document.getElementById("buyBtn").onclick = function() {
-    const timeframe = document.getElementById("timeframe").value;
-    const amount = document.getElementById("amount").value;
-    alert(`Buy Signal\nTimeframe: ${timeframe}\nAmount: $${amount}`);
-  };
-
-  document.getElementById("sellBtn").onclick = function() {
-    const timeframe = document.getElementById("timeframe").value;
-    const amount = document.getElementById("amount").value;
-    alert(`Sell Signal\nTimeframe: ${timeframe}\nAmount: $${amount}`);
-  };
-
-  updateBalanceDisplay();
-</script>
+    animate({
+      from: { scale: 1 },
+      to: { scale: 1.05 },
+      ease: spring({ stiffness: 100, damping: 10 }),
+      repeat: Infinity,
+      yoyo: Infinity,
+      onUpdate: latest => {
+        button.style.transform = `scale(${latest.scale})`;
+      }
+    });
+  </script>
 
 </body>
 </html>
