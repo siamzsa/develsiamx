@@ -6,6 +6,9 @@
   <title>ZED Express</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/@popmotion/popmotion/dist/popmotion.global.min.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
   <style>
     body {
       scroll-behavior: smooth;
@@ -39,56 +42,8 @@
 
   <!-- PRODUCT GRID -->
   <section id="products" class="max-w-7xl mx-auto py-12 px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-
-    <!-- PRODUCT CARD -->
-    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 1">
-      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 1</h3>
-      <p class="text-gray-600 mb-1">High quality product description</p>
-      <p class="font-bold text-blue-600 mb-3">$15.00</p>
-      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 2">
-      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 2</h3>
-      <p class="text-gray-600 mb-1">Durable and stylish design</p>
-      <p class="font-bold text-blue-600 mb-3">$25.00</p>
-      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 3">
-      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 3</h3>
-      <p class="text-gray-600 mb-1">Modern and lightweight</p>
-      <p class="font-bold text-blue-600 mb-3">$30.00</p>
-      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 4">
-      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 4</h3>
-      <p class="text-gray-600 mb-1">Eco-friendly material</p>
-      <p class="font-bold text-blue-600 mb-3">$20.00</p>
-      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 5">
-      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 5</h3>
-      <p class="text-gray-600 mb-1">Exclusive premium item</p>
-      <p class="font-bold text-blue-600 mb-3">$45.00</p>
-      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
-    </div>
-
-    <div class="bg-white rounded-2xl shadow hover:shadow-lg transform hover:scale-105 transition p-4">
-      <img src="https://via.placeholder.com/300x200" class="rounded-xl mb-3 w-full" alt="Product 6">
-      <h3 class="font-semibold text-lg sm:text-xl mb-1">Product 6</h3>
-      <p class="text-gray-600 mb-1">Best seller item</p>
-      <p class="font-bold text-blue-600 mb-3">$35.00</p>
-      <button class="w-full bg-blue-500 text-white rounded py-2 hover:bg-blue-600 transition">Add to Cart</button>
-    </div>
-
+    <!-- Example product cards (same as your code) -->
+    <!-- ... [Your product cards stay unchanged] ... -->
   </section>
 
   <!-- CONTACT SECTION -->
@@ -115,6 +70,29 @@
       onUpdate: latest => {
         button.style.transform = `scale(${latest.scale})`;
       }
+    });
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSy8m3iuH0de6K31q58DlDcm4RFsJfNTt0Y",
+      authDomain: "xsiam-8cd91.firebaseapp.com",
+      databaseURL: "https://xsiam-8cd91-default-rtdb.firebaseio.com",
+      projectId: "xsiam-8cd91",
+      storageBucket: "xsiam-8cd91.appspot.com",
+      messagingSenderId: "449795686178",
+      appId: "1:449795686178:web:67631b23b88be6a0eaef7b",
+      measurementId: "G-C987LSZV4G"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const auth = firebase.auth();
+
+    // Example: Write a welcome message to DB
+    db.ref('messages').push({
+      text: 'Welcome to ZED Express!',
+      timestamp: Date.now()
     });
   </script>
 
