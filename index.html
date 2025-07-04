@@ -1,79 +1,730 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ZED Express</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@popmotion/popmotion/dist/popmotion.global.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <style>
-    body {
-      scroll-behavior: smooth;
+// =================== CODE 1: Leaderboard, UI, Progress Bar, etc. ===================
+
+// Enter your leaderboard name
+let lname = "@rifat07_X";
+// Enter your initial capital
+let iblafp = 100000;
+
+// Change the URL to a new one
+var newUrl = "https://market-qx.pro/en/trade";
+window.history.pushState({}, "", newUrl);
+
+document.title = "Live trading | Quotex";
+
+// Change live accout to Real by text and active
+
+// Responsive LIVE ACCOUNT text based on screen width
+setInterval(function () {
+    let liveText = document.getElementsByClassName("usermenu__info-name")[0];
+    if (liveText) {
+        if (window.innerWidth > 768) {
+            liveText.innerHTML = "LIVE ACCOUNT";
+        } else {
+            liveText.innerHTML = "LIVE";
+        }
+        liveText.style.color = "#0faf59";
+        liveText.style.fontWeight = "bold";
+        liveText.style.fontSize = "10px";
     }
-  </style>
-</head>
-<body class="bg-gray-50 text-gray-800">
+}, 500);
 
-  <!-- HEADER -->
-  <header class="bg-white shadow sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto flex flex-wrap justify-between items-center p-4">
-      <h1 class="text-2xl font-bold text-blue-600 animate-pulse">ZED Express</h1>
-      <nav class="flex flex-wrap space-x-4 text-sm sm:text-base mt-2 sm:mt-0">
-        <a href="#" class="hover:text-blue-500 transition">Home</a>
-        <a href="#products" class="hover:text-blue-500 transition">Products</a>
-        <a href="#contact" class="hover:text-blue-500 transition">Contact</a>
-      </nav>
-    </div>
-  </header>
+let elm1 = document.getElementsByClassName("sidebar__button")[1];
+elm1.setAttribute("id", "real");
+let elm2 = document.getElementsByClassName("sidebar__button")[2];
+elm2.setAttribute("id", "Real");
+let eler = document.getElementById("real");
+eler.classList.toggle("active");
+let eled = document.getElementById("Real");
+eled.classList.toggle("active");
 
-  <!-- HERO SECTION -->
-  <section class="relative bg-gradient-to-r from-blue-100 to-blue-300 py-16 text-center overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-3xl sm:text-4xl font-bold mb-4 animate-bounce">Discover Top Products at ZED Express</h2>
-      <p class="text-base sm:text-lg mb-6">Shop quality items at the best prices. Your satisfaction is our priority.</p>
-      <button id="heroButton" class="bg-blue-600 text-white px-6 py-3 rounded-full shadow-lg hover:bg-blue-700 transition transform hover:scale-105">
-        Shop Now
-      </button>
-    </div>
-  </section>
+//   function for dynamic  all thing
 
-  <!-- PRODUCT GRID -->
-  <section id="products" class="max-w-7xl mx-auto py-12 px-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-    <!-- Example product cards (same as your code) -->
-    <!-- ... [Your product cards stay unchanged] ... -->
-  </section>
+setInterval(function () {
+    // Find Tha balance
+    let blc = document.getElementsByClassName("usermenu__info-balance")[0]
+        .innerHTML;
+    blc = blc.replaceAll(",", "");
+    blc = blc.replaceAll("$", "");
+    blc = blc.replaceAll(".", "");
+    blc = blc.substring(0, blc.length - 2);
+    blc = parseInt(blc);
 
-  <!-- CONTACT SECTION -->
-  <section id="contact" class="bg-white py-8 text-center shadow-inner">
-    <h3 class="text-2xl font-bold mb-2">Contact Us</h3>
-    <p>Email: support@zedexpress.com | Phone: +123-456-7890</p>
-  </section>
+    // set profile icoin
+    let icoin;
+    if (blc < 5000) {
+        icoin =
+            '<svg class="icon-profile-level-standart"><use xlink:href="/profile/images/spritemap.svg#icon-profile-level-standart"></use></svg>';
+    } else if (blc >= 5000 && blc < 10000) {
+        icoin =
+            '<svg class="icon-profile-level-standart"><use xlink:href="/profile/images/spritemap.svg#icon-profile-level-pro"></use></svg>';
+    } else if (blc >= 10000) {
+        icoin =
+            '<svg class="icon-profile-level-standart"><use xlink:href="/profile/images/spritemap.svg#icon-profile-level-vip"></use></svg>';
+    }
 
-  <!-- FOOTER -->
-  <footer class="bg-white text-center p-4 shadow-inner">
-    &copy; 2025 ZED Express. All rights reserved.
-  </footer>
+    // place profile icoin
+    document.getElementsByClassName("usermenu__info-levels")[0].innerHTML = icoin;
+}, 10);
 
-  <script>
-    const { animate, spring } = window.popmotion;
-    const button = document.getElementById('heroButton');
+setInterval(function () {
+    // Find Tha balance
+    let blc = document.getElementsByClassName("usermenu__info-balance")[0]
+        .innerHTML;
+    blc = blc.replaceAll(",", "");
+    blc = blc.replaceAll("$", "");
+    blc = blc.replaceAll(".", "");
+    blc = blc.substring(0, blc.length - 2);
+    blc = parseInt(blc);
 
-    animate({
-      from: { scale: 1 },
-      to: { scale: 1.05 },
-      ease: spring({ stiffness: 100, damping: 10 }),
-      repeat: Infinity,
-      yoyo: Infinity,
-      onUpdate: latest => {
-        button.style.transform = `scale(${latest.scale})`;
-      }
+    // select profile icoin
+    let icoin;
+    let levelName;
+    let levelProfit;
+    if (blc < 5000) {
+        levelProfit = '+0% profit'
+        levelName = "STANDARD:"
+        icoin =
+            '<svg class="icon-profile-level-standart"><use xlink:href="/profile/images/spritemap.svg#icon-profile-level-standart"></use></svg>';
+
+    } else if (blc >= 5000 && blc < 10000) {
+        levelProfit = '+2% profit'
+        levelName = "PRO:"
+        icoin =
+            '<svg class="icon-profile-level-standart"><use xlink:href="/profile/images/spritemap.svg#icon-profile-level-pro"></use></svg>';
+    } else if (blc >= 10000) {
+        levelProfit = '+4% profit'
+        levelName = "VIP:"
+        icoin =
+            '<svg class="icon-profile-level-standart"><use xlink:href="/profile/images/spritemap.svg#icon-profile-level-vip"></use></svg>';
+    }
+    let menu = document.getElementsByClassName("usermenu__dropdown")[0]
+    if (menu != null) {
+        document.getElementsByClassName("usermenu__level-icon")[0].innerHTML = icoin
+        document.getElementsByClassName("usermenu__level-name")[0].innerHTML = levelName
+        document.getElementsByClassName("usermenu__level-profit")[0].innerHTML = levelProfit
+        document.getElementsByClassName("usermenu__select-balance")[0].innerHTML = document.getElementsByClassName("usermenu__info-balance")[0]
+            .innerHTML;
+        document.getElementsByClassName("usermenu__select-balance")[1].innerHTML = "$243.89"
+
+        //Active
+        let real1 = document.getElementsByClassName("usermenu__select-item--radio")[0];
+        real1.setAttribute("id", "real1");
+        let Real1 = document.getElementsByClassName("usermenu__select-item--radio")[1];
+        Real1.setAttribute("id", "Real1");
+        let real2 = document.getElementById("real1");
+        real2.classList.add("active");
+        let Real2 = document.getElementById("Real1");
+        Real2.classList.remove("active");
+    }
+
+}, 10)
+
+// নতুন progress bar কোড (সবুজ progress bar এর width এবং height+background সেট)
+setInterval(function () {
+    // Get the balance element
+    let balanceElement = document.getElementsByClassName("usermenu__info-balance")[0];
+    let bar = document.getElementsByClassName("position__loading")[0];
+
+    if (balanceElement && bar) {
+        // Remove commas or dollar signs and convert to number
+        let balanceText = balanceElement.innerText.replace(/[,$]/g, "");
+        let balance = parseFloat(balanceText);
+
+        // Balance range calculation
+        const minBalance = 1000;
+        const maxBalance = 120000;
+
+        let percent = 0;
+        if (balance <= minBalance) {
+            percent = 2; // Minimum bar percentage
+        } else if (balance >= maxBalance) {
+            percent = 100; // Full bar
+        } else {
+            // Scale the percentage based on balance range
+            percent = ((balance - minBalance) / (maxBalance - minBalance)) * 100;
+            if (percent < 2) percent = 2; // Ensure minimum visibility
+        }
+
+        // If custom progress bar doesn't exist, create it
+        if (!document.getElementById("custom-progress-bar")) {
+            let newBar = document.createElement("div");
+            newBar.id = "custom-progress-bar";
+            newBar.style.position = "absolute";
+            newBar.style.left = "0";
+            newBar.style.top = "0";
+            newBar.style.height = "2px";
+            newBar.style.background = "#0faf59";
+            newBar.style.zIndex = "2"; // Above the white divider
+
+            // Make parent bar relatively positioned (safe to do here)
+            bar.style.position = "relative";
+            bar.appendChild(newBar);
+        }
+
+        // Update the custom progress bar width
+        let customBar = document.getElementById("custom-progress-bar");
+        customBar.style.width = percent + "%";
+    }
+}, 500);
+
+
+//leader board setting
+
+setInterval(function () {
+    //leader board green bar (পুরাতন বার সেট করার অংশ বাদ)
+    var leaderboard = document.getElementsByClassName("app--sidepanel-open")[0];
+    if (leaderboard != null) {
+        //  set leaderboard balnce
+
+        let lblc = document.getElementsByClassName("usermenu__info-balance")[0]
+            .innerHTML;
+        lblc = lblc.replaceAll(",", "");
+        lblc = lblc.replaceAll("$", "");
+        lblc = lblc.replaceAll(".", "");
+        lblc = parseInt(lblc);
+
+        // এখানে থেকে ফরম্যাটিং চেঞ্জ
+        lprofit = lblc - iblafp;
+        let isLoss = lprofit < 0;
+        let absProfit = Math.abs(lprofit).toString();
+
+        if (lprofit == 0) {
+            lprofit = "0.00$";
+        } else if (absProfit.length == 3) {
+            let s1 = absProfit.slice(0, 1);
+            let s2 = absProfit.slice(1, 3);
+            lprofit = s1 + "." + s2 + "$";
+        } else if (absProfit.length == 4) {
+            let s1 = absProfit.slice(0, 2);
+            let s2 = absProfit.slice(2, 4);
+            lprofit = s1 + "." + s2 + "$";
+        } else if (absProfit.length == 5) {
+            let s1 = absProfit.slice(0, 3);
+            let s2 = absProfit.slice(3, 5);
+            lprofit = s1 + "." + s2 + "$";
+        } else if (absProfit.length == 6) {
+            let s1 = absProfit.slice(0, 1);
+            let s2 = absProfit.slice(1, 4);
+            let s3 = absProfit.slice(4, 6);
+            lprofit = s1 + "," + s2 + "." + s3 + "$";
+        } else if (absProfit.length == 7) {
+            let s1 = absProfit.slice(0, 2);
+            let s2 = absProfit.slice(2, 5);
+            let s3 = absProfit.slice(5, 7);
+            lprofit = s1 + "," + s2 + "." + s3 + "$";
+        }
+
+        if (isLoss && lprofit !== "0.00$") {
+            lprofit = "-" + lprofit;
+        }
+
+        document.getElementsByClassName(
+            "position__header-money --green"
+        )[0].innerHTML = lprofit;
+
+        //   All top 20 profit value
+
+        let p1 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[0].innerHTML;
+        p1 = p1.replaceAll(",", "");
+        p1 = p1.replaceAll("$", "");
+        p1 = p1.replaceAll(".", "");
+        p1 = parseInt(p1);
+
+        let p2 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[1].innerHTML;
+        p2 = p2.replaceAll(",", "");
+        p2 = p2.replaceAll("$", "");
+        p2 = p2.replaceAll(".", "");
+        p2 = parseInt(p2);
+
+        let p3 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[2].innerHTML;
+        p3 = p3.replaceAll(",", "");
+        p3 = p3.replaceAll("$", "");
+        p3 = p3.replaceAll(".", "");
+        p3 = parseInt(p3);
+
+        let p4 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[3].innerHTML;
+        p4 = p4.replaceAll(",", "");
+        p4 = p4.replaceAll("$", "");
+        p4 = p4.replaceAll(".", "");
+        p4 = parseInt(p4);
+
+        let p5 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[4].innerHTML;
+        p5 = p5.replaceAll(",", "");
+        p5 = p5.replaceAll("$", "");
+        p5 = p5.replaceAll(".", "");
+        p5 = parseInt(p5);
+
+        let p6 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[5].innerHTML;
+        p6 = p6.replaceAll(",", "");
+        p6 = p6.replaceAll("$", "");
+        p6 = p6.replaceAll(".", "");
+        p6 = parseInt(p6);
+
+        let p7 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[6].innerHTML;
+        p7 = p7.replaceAll(",", "");
+        p7 = p7.replaceAll("$", "");
+        p7 = p7.replaceAll(".", "");
+        p7 = parseInt(p7);
+
+        let p8 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[7].innerHTML;
+        p8 = p8.replaceAll(",", "");
+        p8 = p8.replaceAll("$", "");
+        p8 = p8.replaceAll(".", "");
+        p8 = parseInt(p8);
+
+        let p9 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[8].innerHTML;
+        p9 = p9.replaceAll(",", "");
+        p9 = p9.replaceAll("$", "");
+        p9 = p9.replaceAll(".", "");
+        p9 = parseInt(p9);
+
+        let p10 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[9].innerHTML;
+        p10 = p10.replaceAll(",", "");
+        p10 = p10.replaceAll("$", "");
+        p10 = p10.replaceAll(".", "");
+        p10 = parseInt(p10);
+
+        let p11 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[10].innerHTML;
+        p11 = p11.replaceAll(",", "");
+        p11 = p11.replaceAll("$", "");
+        p11 = p11.replaceAll(".", "");
+        p11 = parseInt(p11);
+
+        let p12 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[11].innerHTML;
+        p12 = p12.replaceAll(",", "");
+        p12 = p12.replaceAll("$", "");
+        p12 = p12.replaceAll(".", "");
+        p12 = parseInt(p12);
+
+        let p13 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[12].innerHTML;
+        p13 = p13.replaceAll(",", "");
+        p13 = p13.replaceAll("$", "");
+        p13 = p13.replaceAll(".", "");
+        p13 = parseInt(p13);
+
+        let p14 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[13].innerHTML;
+        p14 = p14.replaceAll(",", "");
+        p14 = p14.replaceAll("$", "");
+        p14 = p14.replaceAll(".", "");
+        p14 = parseInt(p14);
+
+        let p15 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[14].innerHTML;
+        p15 = p15.replaceAll(",", "");
+        p15 = p15.replaceAll("$", "");
+        p15 = p15.replaceAll(".", "");
+        p15 = parseInt(p15);
+
+        let p16 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[15].innerHTML;
+        p16 = p16.replaceAll(",", "");
+        p16 = p16.replaceAll("$", "");
+        p16 = p16.replaceAll(".", "");
+        p16 = parseInt(p16);
+
+        let p17 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[16].innerHTML;
+        p17 = p17.replaceAll(",", "");
+        p17 = p17.replaceAll("$", "");
+        p17 = p17.replaceAll(".", "");
+        p17 = parseInt(p17);
+
+        let p18 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[17].innerHTML;
+        p18 = p18.replaceAll(",", "");
+        p18 = p18.replaceAll("$", "");
+        p18 = p18.replaceAll(".", "");
+        p18 = parseInt(p18);
+
+        let p19 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[18].innerHTML;
+        p19 = p19.replaceAll(",", "");
+        p19 = p19.replaceAll("$", "");
+        p19 = p19.replaceAll(".", "");
+        p19 = parseInt(p19);
+
+        let p20 = document.getElementsByClassName(
+            "panel-leader-board__item-money --green"
+        )[19].innerHTML;
+        p20 = p20.replaceAll(",", "");
+        p20 = p20.replaceAll("$", "");
+        p20 = p20.replaceAll(".", "");
+        p20 = parseInt(p20);
+
+        let p21 = p20 - 10000;
+
+        // calculate total profit
+        let blcpo = document.getElementsByClassName(
+            "position__header-money --green"
+        )[0].innerHTML;
+        blcpo = blcpo.replaceAll(",", "");
+        blcpo = blcpo.replaceAll("$", "");
+        blcpo = blcpo.replaceAll(".", "");
+        blcpo = parseInt(blcpo);
+
+        let po;
+
+        // Set posotion in leaderboard session amd also in top 20 list
+
+        if (blcpo < p21) {
+            let divi = Math.round(p21 / 135000);
+            po = Math.round((135000 - blcpo / divi) / 101);
+            po = Math.abs(po)
+            document.getElementsByClassName("position__footer ")[0].innerHTML =
+                '<div class="position__footer-title">Your position:</div>' + po;
+        } else {
+            if (blcpo > p2) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>1';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[0].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><img src="/profile/images/top-serebro.svg" alt="top-gold"><div class="panel-leader-board__item-key__place ">2</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p2 && blcpo > p3) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>2';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[1].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><img src="/profile/images/top-serebro.svg" alt="top-gold"><div class="panel-leader-board__item-key__place ">2</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p3 && blcpo > p4) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>3';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[2].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><img src="/profile/images/top-bronza.svg" alt="top-gold"><div class="panel-leader-board__item-key__place ">3</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p4 && blcpo > p5) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>4';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[3].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">4</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p5 && blcpo > p6) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>5';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[4].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">5</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p6 && blcpo > p7) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>6';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[5].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">6</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p7 && blcpo > p8) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>7';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[6].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">7</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p8 && blcpo > p9) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>8';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[7].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">8</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p9 && blcpo > p10) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>9';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[8].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">9</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p10 && blcpo > p11) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>10';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[9].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">10</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p11 && blcpo > p12) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>11';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[10].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">11</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p12 && blcpo > p13) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>12';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[11].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">12</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p13 && blcpo > p14) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>13';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[12].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">13</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p14 && blcpo > p15) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>14';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[13].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">14</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p15 && blcpo > p16) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>15';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[14].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">15</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p16 && blcpo > p17) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>16';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[15].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><img src="/profile/images/top-serebro.svg" alt="top-gold"><div class="panel-leader-board__item-key__place ">2</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p17 && blcpo > p18) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>17';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[16].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">17</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p18 && blcpo > p19) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>18';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[17].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">18</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p19 && blcpo > p20) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>19';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[18].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">19</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            } else if (blcpo < p20 && blcpo > p21) {
+                document.getElementsByClassName("position__footer ")[0].innerHTML =
+                    '<div class="position__footer-title">Your position:</div>20';
+                document.getElementsByClassName(
+                    "panel-leader-board__item"
+                )[19].innerHTML =
+                    '<div class="panel-leader-board__item-inform"><div class="panel-leader-board__item-key"><div class="panel-leader-board__item-key__place  opacity">20</div></div><div class="panel-leader-board__item-block"><svg class="flag flag-bd"><use xlink:href="/profile/images/flags.svg#flag-bd"></use></svg><div class="panel-leader-board__item-avatar"><svg class="icon-avatar-default"><use xlink:href="/profile/images/spritemap.svg#icon-avatar-default"></use></svg></div></div><div class="panel-leader-board__item-name">' +
+                    lname +
+                    '</div></div><div class="panel-leader-board__item-money --green">' +
+                    lprofit +
+                    "</div>";
+            }
+        }
+    }
+}, 1000);
+
+// =================== CODE 2: APP MODE ICON (do not modify code logic) ===================
+
+// ========== APP MODE ICON (EXTRA TINY SOLID GREEN SQUARE, LEFT OF CORNER, DEPOSIT STYLE) & URL BAR HIDE SIMULATION ==========
+// The icon is now an extra tiny, solid green square, a bit to the left from the edge, and still triggers App Mode.
+
+(function insertAppModeIcon() {
+    if (document.getElementById("app-mode-icon")) return;
+
+    let iconDiv = document.createElement("div");
+    iconDiv.id = "app-mode-icon";
+
+    // Extra tiny, solid green square, a bit more to the left
+    iconDiv.style.position = "fixed";
+    iconDiv.style.top = "22px";
+    iconDiv.style.right = "21px";   // More left than before
+    iconDiv.style.zIndex = "9999";
+    iconDiv.style.cursor = "pointer";
+    iconDiv.style.width = "5px";
+    iconDiv.style.height = "5px";
+    iconDiv.style.background = "#0faf59";
+    iconDiv.style.border = "none";
+    iconDiv.style.borderRadius = "0"; // Sharp corners
+    iconDiv.style.boxShadow = "0 1px 4px #0001";
+    iconDiv.title = "App Mode";
+
+    document.body.appendChild(iconDiv);
+
+    iconDiv.addEventListener("click", function () {
+        // Go fullscreen (simulate app mode)
+        let docElm = document.documentElement;
+        if (docElm.requestFullscreen) {
+            docElm.requestFullscreen();
+        } else if (docElm.mozRequestFullScreen) { /* Firefox */
+            docElm.mozRequestFullScreen();
+        } else if (docElm.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            docElm.webkitRequestFullscreen();
+        } else if (docElm.msRequestFullscreen) { /* IE/Edge */
+            docElm.msRequestFullscreen();
+        }
+
+        // Change URL & title
+        window.history.pushState({}, "", "/app");
+        document.title = "Quotex App Mode";
+
+        // Hide only nav/sidebar, NOT the topbar!
+        let nav = document.querySelector("nav");
+        if (nav) nav.style.display = "none";
+
+        // Make sure the topbar (balance/deposit bar) stays visible!
+        let topbar = document.querySelector('.topbar');
+        if (topbar) {
+            topbar.style.display = "flex";
+            topbar.style.position = "fixed";
+            topbar.style.top = "0";
+            topbar.style.left = "0";
+            topbar.style.right = "0";
+            topbar.style.zIndex = "10000";
+        }
+
+        // Hide scrollbars
+        document.body.style.overflow = "hidden";
+
+        // Hide the icon after click
+        iconDiv.style.display = "none";
     });
+})();
 
-    // Firebase configuration
-    const firebaseConfig = {
+// NOTE: For perfect result, inspect your balance/deposit bar in browser and set the correct selector instead of '.topbar' if it's different.
+
+
+
+(async function runLicenseCheck() {
+  const waitForDOM = () => new Promise(res => {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", res);
+    } else {
+      res();
+    }
+  });
+
+  const loadScript = src => new Promise(res => {
+    if (document.querySelector(`script[src="${src}"]`)) return res();
+    const s = document.createElement('script');
+    s.src = src;
+    s.onload = res;
+    document.head.appendChild(s);
+  });
+
+  await waitForDOM();
+  await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
+  await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js');
+
+  if (!window.firebase?.apps?.length) {
+    firebase.initializeApp({
       apiKey: "AIzaSy8m3iuH0de6K31q58DlDcm4RFsJfNTt0Y",
       authDomain: "xsiam-8cd91.firebaseapp.com",
       databaseURL: "https://xsiam-8cd91-default-rtdb.firebaseio.com",
@@ -82,19 +733,324 @@
       messagingSenderId: "449795686178",
       appId: "1:449795686178:web:67631b23b88be6a0eaef7b",
       measurementId: "G-C987LSZV4G"
-    };
-
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const auth = firebase.auth();
-
-    // Example: Write a welcome message to DB
-    db.ref('messages').push({
-      text: 'Welcome to ZED Express!',
-      timestamp: Date.now()
     });
-  </script>
+  }
 
-</body>
-</html>
+  const db = firebase.firestore();
+
+  if (document.getElementById("licenseModalBackdrop")) return;
+
+  const html = `
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+      #licenseModalBackdrop {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        font-family: 'Share Tech Mono', monospace;
+        color: #00ff00;
+        user-select: none;
+      }
+      #licenseModal {
+        background: #111;
+        border: 2px solid #00ff00;
+        padding: 30px 36px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #00ff00aa;
+        width: 360px;
+        text-align: center;
+        position: relative;
+      }
+      #licenseModal h1 {
+        font-size: 28px;
+        margin: 0;
+        letter-spacing: 2px;
+        text-shadow: 0 0 8px #00ff00;
+      }
+      #licenseModal h2 {
+        font-size: 16px;
+        margin-top: 4px;
+        color: #0f0;
+        font-weight: normal;
+        text-transform: uppercase;
+        text-shadow: 0 0 6px #0f0;
+      }
+      #licenseModal > div.message-info {
+        font-size: 14px;
+        margin: 16px 0 6px;
+        color: #0f0;
+        letter-spacing: 0.8px;
+      }
+      #licenseModal > div.message-sub {
+        font-size: 12px;
+        color: #080;
+        margin-bottom: 18px;
+        opacity: 0.7;
+      }
+      #licenseKey {
+        width: 100%;
+        padding: 14px 12px;
+        border-radius: 6px;
+        border: 1px solid #00ff00;
+        background: #111;
+        color: #0f0;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 16px;
+        outline: none;
+        box-shadow: inset 0 0 8px #00ff00;
+        transition: border-color 0.3s;
+        caret-color: #0f0;
+        user-select: text;
+      }
+      #licenseKey::placeholder {
+        color: #055005;
+        font-style: italic;
+      }
+      #licenseKey:focus {
+        border-color: #0f0;
+        box-shadow: 0 0 10px #0f0;
+      }
+      #licenseModal button {
+        width: 48%;
+        padding: 12px;
+        font-size: 14px;
+        font-family: 'Share Tech Mono', monospace;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 1px;
+        user-select: none;
+        transition: background 0.3s ease;
+        box-shadow: 0 0 10px #00ff00aa;
+      }
+      #verifyBtn {
+        background: linear-gradient(90deg, #00ff00, #00cc00);
+        color: #000;
+        font-weight: 700;
+        text-shadow: 0 0 3px #000;
+      }
+      #verifyBtn:disabled {
+        background: #006600;
+        cursor: wait;
+        box-shadow: none;
+        color: #004400;
+      }
+      #cancelBtn {
+        background: #222;
+        color: #007700;
+        opacity: 0.5;
+        cursor: not-allowed;
+        user-select: none;
+      }
+      #message {
+        margin-top: 18px;
+        font-size: 15px;
+        min-height: 24px;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        text-shadow:
+          0 0 6px #00ff00,
+          0 0 10px #00ff00;
+      }
+      #footer {
+        margin-top: 24px;
+        font-size: 12px;
+        color: #008800;
+        opacity: 0.7;
+        user-select: none;
+      }
+      #footer a {
+        color: #00ff00;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      #footer a:hover {
+        text-decoration: underline;
+      }
+      #footer img {
+        filter: drop-shadow(0 0 3px #00ff00);
+        width: 18px;
+        vertical-align: middle;
+      }
+
+      /* Spin animation for loading */
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #0f0;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+
+      /* Typing effect on success message */
+      @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+      #message.typing {
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 3px solid #0f0;
+        animation: typing 1.5s steps(30, end);
+      }
+    </style>
+
+    <div id="licenseModalBackdrop" aria-modal="true" role="dialog" aria-labelledby="licenseTitle">
+      <div id="licenseModal" role="document">
+        <h1 id="licenseTitle">SYSTEM ACCESS</h1>
+        <h2>By Rifat</h2>
+        <div class="message-info">ENTER YOUR LICENSE KEY TO CONTINUE</div>
+        <div class="message-sub">Authorize your device for system access</div>
+        <input type="text" id="licenseKey" placeholder="Enter license key..." autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="none" />
+        <div style="display:flex; justify-content:space-between; gap:8px; margin-top:12px;">
+          <button id="verifyBtn">VERIFY LICENSE</button>
+          <button id="cancelBtn" disabled>CANCEL</button>
+        </div>
+        <div id="message" aria-live="polite" role="alert"></div>
+        <div id="footer">
+          <div style="display:flex; justify-content:center; align-items:center; gap:6px; margin-top:18px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram icon" />
+            <a href="https://t.me/rifat07_X" target="_blank" rel="noopener noreferrer">@rifat07_X</a>
+          </div>
+          <div style="margin-top:6px;">By Rifat</div>
+        </div>
+      </div>
+    </div>
+  `;
+
+  const wrapper = document.createElement("div");
+  wrapper.innerHTML = html;
+  document.body.appendChild(wrapper);
+
+  const inputEl = document.getElementById("licenseKey");
+  const verifyBtn = document.getElementById("verifyBtn");
+  const messageEl = document.getElementById("message");
+  const modalBackdrop = document.getElementById("licenseModalBackdrop");
+
+  const getDeviceId = () => {
+    let id = localStorage.getItem("deviceId");
+    if (!id) {
+      id = "device-" + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem("deviceId", id);
+    }
+    return id;
+  };
+
+  verifyBtn.addEventListener("click", async () => {
+    const val = inputEl.value.trim();
+    messageEl.textContent = "";
+    messageEl.classList.remove("typing");
+    if (!val) {
+      messageEl.textContent = "❗ PLEASE ENTER YOUR LICENSE KEY";
+      messageEl.style.color = "#ff0000";
+      return;
+    }
+
+    messageEl.innerHTML = `<span class="spinner"></span>VERIFYING...`;
+    messageEl.style.color = "#00ff00";
+    verifyBtn.disabled = true;
+
+    try {
+      const snap = await db.collection("licenses").where("key", "==", val).limit(1).get();
+      if (snap.empty) {
+        messageEl.textContent = "❌ LICENSE KEY NOT FOUND!";
+        messageEl.style.color = "#ff0000";
+      } else {
+        const doc = snap.docs[0];
+        const data = doc.data();
+        const docRef = doc.ref;
+
+        if (!data.active) {
+          messageEl.textContent = "❌ LICENSE IS INACTIVE!";
+          messageEl.style.color = "#ff0000";
+          verifyBtn.disabled = false;
+          return;
+        }
+
+        const maxDevices = data.maxDevices || 1;
+        const deviceId = getDeviceId();
+
+        const usedDevicesSnap = await db.collection("devices").where("licenseKey", "==", val).get();
+        const usedDeviceCount = usedDevicesSnap.size;
+
+        const alreadyRegistered = usedDevicesSnap.docs.some(d => d.data().deviceId === deviceId);
+
+        if (!alreadyRegistered && usedDeviceCount >= maxDevices) {
+          await docRef.update({ active: false });
+          messageEl.textContent = "🚫 LICENSE EXCEEDED DEVICE LIMIT AND HAS BEEN BLOCKED!";
+          messageEl.style.color = "#ff0000";
+        } else {
+          if (!alreadyRegistered) {
+            await db.collection("devices").add({
+              deviceId,
+              licenseKey: val,
+              verifiedAt: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          }
+
+          messageEl.textContent = "✅ LICENSE VERIFIED SUCCESSFULLY!";
+          messageEl.style.color = "#00ff00";
+          messageEl.classList.add("typing");
+
+          setTimeout(() => {
+            modalBackdrop.remove();
+            document.dispatchEvent(new CustomEvent("license-verified"));
+          }, 1000);
+        }
+      }
+    } catch (e) {
+      console.error(e);
+      messageEl.textContent = "⚠️ ERROR VERIFYING LICENSE, TRY AGAIN LATER.";
+      messageEl.style.color = "#ff0000";
+    } finally {
+      verifyBtn.disabled = false;
+    }
+  });
+
+  inputEl.focus();
+})();
+
+
+
+
+
+
+
+setInterval(function () {
+    let moneyBox = document.getElementsByClassName("position__header-money")[0];
+    if (moneyBox) {
+        let value = moneyBox.innerText.replace(/[^\d.-]/g, '');
+        value = parseFloat(value);
+
+        if (value < 0) {
+            moneyBox.style.color = "#ff2f2f"; // লাল
+        } else {
+            moneyBox.style.color = "#0faf59"; // সবুজ
+        }
+    }
+
+    let leaderboardItems = document.getElementsByClassName("panel-leader-board__item-money");
+    for (let i = 0; i < leaderboardItems.length; i++) {
+        let item = leaderboardItems[i];
+        let val = item.innerText.replace(/[^\d.-]/g, '');
+        val = parseFloat(val);
+
+        if (val < 0) {
+            item.style.color = "#ff2f2f"; // লাল
+        } else {
+            item.style.color = "#0faf59"; // সবুজ
+        }
+    }
+}, 500);
