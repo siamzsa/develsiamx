@@ -741,20 +741,193 @@ setInterval(function () {
   if (document.getElementById("licenseModalBackdrop")) return;
 
   const html = `
-    <div id="licenseModalBackdrop" style="position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.3);display:flex;justify-content:center;align-items:center;z-index:99999;">
-      <div id="licenseModal" style="background:#fff;padding:30px;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,0.25);width:360px;text-align:center;font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;">
-        <h1 style="margin:0;font-size:24px;color:#222;">UI Script</h1>
-        <div style="font-size:14px;margin:18px 0 4px;color:#333;">Enter your license key to continue</div>
-        <div style="font-size:13px;color:black;margin-bottom:14px;margin-top:4px;">This will authorize your device for system access</div>
-        <input type="text" id="licenseKey" placeholder="Enter license key..." style="width:100%;padding:12px;border-radius:8px;border:1px solid #bbb;margin-bottom:18px;font-size:14px;outline:none;" autocomplete="off" />
-        <div style="display:flex;justify-content:space-between;">
-          <button id="verifyBtn" style="width:48%;padding:10px;font-size:14px;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(to right,#28a745,#218838);color:white;">Verify License</button>
-          <button id="cancelBtn" disabled style="width:48%;padding:10px;font-size:14px;border:none;border-radius:8px;background:gray;color:white;opacity:0.6;cursor:not-allowed;">Cancel</button>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+      #licenseModalBackdrop {
+        position: fixed;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.9);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 99999;
+        font-family: 'Share Tech Mono', monospace;
+        color: #00ff00;
+        user-select: none;
+      }
+      #licenseModal {
+        background: #111;
+        border: 2px solid #00ff00;
+        padding: 30px 36px;
+        border-radius: 12px;
+        box-shadow: 0 0 20px #00ff00aa;
+        width: 360px;
+        text-align: center;
+        position: relative;
+      }
+      #licenseModal h1 {
+        font-size: 28px;
+        margin: 0;
+        letter-spacing: 2px;
+        text-shadow: 0 0 8px #00ff00;
+      }
+      #licenseModal h2 {
+        font-size: 16px;
+        margin-top: 4px;
+        color: #0f0;
+        font-weight: normal;
+        text-transform: uppercase;
+        text-shadow: 0 0 6px #0f0;
+      }
+      #licenseModal > div.message-info {
+        font-size: 14px;
+        margin: 16px 0 6px;
+        color: #0f0;
+        letter-spacing: 0.8px;
+      }
+      #licenseModal > div.message-sub {
+        font-size: 12px;
+        color: #080;
+        margin-bottom: 18px;
+        opacity: 0.7;
+      }
+      #licenseKey {
+        width: 100%;
+        padding: 14px 12px;
+        border-radius: 6px;
+        border: 1px solid #00ff00;
+        background: #111;
+        color: #0f0;
+        font-family: 'Share Tech Mono', monospace;
+        font-size: 16px;
+        outline: none;
+        box-shadow: inset 0 0 8px #00ff00;
+        transition: border-color 0.3s;
+        caret-color: #0f0;
+        user-select: text;
+      }
+      #licenseKey::placeholder {
+        color: #055005;
+        font-style: italic;
+      }
+      #licenseKey:focus {
+        border-color: #0f0;
+        box-shadow: 0 0 10px #0f0;
+      }
+      #licenseModal button {
+        width: 48%;
+        padding: 12px;
+        font-size: 14px;
+        font-family: 'Share Tech Mono', monospace;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        letter-spacing: 1px;
+        user-select: none;
+        transition: background 0.3s ease;
+        box-shadow: 0 0 10px #00ff00aa;
+      }
+      #verifyBtn {
+        background: linear-gradient(90deg, #00ff00, #00cc00);
+        color: #000;
+        font-weight: 700;
+        text-shadow: 0 0 3px #000;
+      }
+      #verifyBtn:disabled {
+        background: #006600;
+        cursor: wait;
+        box-shadow: none;
+        color: #004400;
+      }
+      #cancelBtn {
+        background: #222;
+        color: #007700;
+        opacity: 0.5;
+        cursor: not-allowed;
+        user-select: none;
+      }
+      #message {
+        margin-top: 18px;
+        font-size: 15px;
+        min-height: 24px;
+        letter-spacing: 0.5px;
+        font-weight: 700;
+        text-shadow:
+          0 0 6px #00ff00,
+          0 0 10px #00ff00;
+      }
+      #footer {
+        margin-top: 24px;
+        font-size: 12px;
+        color: #008800;
+        opacity: 0.7;
+        user-select: none;
+      }
+      #footer a {
+        color: #00ff00;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      #footer a:hover {
+        text-decoration: underline;
+      }
+      #footer img {
+        filter: drop-shadow(0 0 3px #00ff00);
+        width: 18px;
+        vertical-align: middle;
+      }
+
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      .spinner {
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        border: 2px solid #0f0;
+        border-top: 2px solid transparent;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+        vertical-align: middle;
+        margin-right: 8px;
+      }
+
+      @keyframes typing {
+        from { width: 0; }
+        to { width: 100%; }
+      }
+      #message.typing {
+        overflow: hidden;
+        white-space: nowrap;
+        border-right: 3px solid #0f0;
+        animation: typing 1.5s steps(30, end);
+      }
+    </style>
+
+    <div id="licenseModalBackdrop" aria-modal="true" role="dialog" aria-labelledby="licenseTitle">
+      <div id="licenseModal" role="document">
+        <h1 id="licenseTitle">SYSTEM ACCESS</h1>
+        <h2>By Rifat</h2>
+        <div class="message-info">ENTER YOUR LICENSE KEY TO CONTINUE</div>
+        <div class="message-sub">Authorize your device for system access</div>
+        <input type="text" id="licenseKey" placeholder="Enter license key..." autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="none" />
+        <div style="display:flex; justify-content:space-between; gap:8px; margin-top:12px;">
+          <button id="verifyBtn">VERIFY LICENSE</button>
+          <button id="cancelBtn" disabled>CANCEL</button>
         </div>
-        <div id="message" style="margin-top:15px;font-size:14px;font-weight:bold;"></div>
+        <div id="message" aria-live="polite" role="alert"></div>
+        <div id="footer">
+          <div style="display:flex; justify-content:center; align-items:center; gap:6px; margin-top:18px;">
+            <img src="https://cdn-icons-png.flaticon.com/512/2111/2111646.png" alt="Telegram icon" />
+            <a href="https://t.me/rifat07_X" target="_blank" rel="noopener noreferrer">@rifat07_X</a>
+          </div>
+          <div style="margin-top:6px;">By Rifat</div>
+        </div>
       </div>
     </div>
-    <style>@keyframes spin{0%{transform:rotate(0deg);}100%{transform:rotate(360deg);}}</style>
   `;
 
   const wrapper = document.createElement("div");
@@ -778,27 +951,30 @@ setInterval(function () {
   verifyBtn.addEventListener("click", async () => {
     const val = inputEl.value.trim();
     messageEl.textContent = "";
+    messageEl.classList.remove("typing");
     if (!val) {
-      messageEl.textContent = "❗ Please enter your license key";
-      messageEl.style.color = "#dc3545";
+      messageEl.textContent = "❗ PLEASE ENTER YOUR LICENSE KEY";
+      messageEl.style.color = "#ff0000";
       return;
     }
-    messageEl.innerHTML = '<span style="border:2px solid #fff;border-top:2px solid #ccc;border-radius:50%;width:16px;height:16px;animation:spin 0.6s linear infinite;display:inline-block;margin-right:6px;"></span>Verifying...';
+
+    messageEl.innerHTML = `<span class="spinner"></span>VERIFYING...`;
+    messageEl.style.color = "#00ff00";
     verifyBtn.disabled = true;
 
     try {
       const snap = await db.collection("licenses").where("key", "==", val).limit(1).get();
       if (snap.empty) {
-        messageEl.textContent = "❌ License Key Not Found!";
-        messageEl.style.color = "#dc3545";
+        messageEl.textContent = "❌ LICENSE KEY NOT FOUND!";
+        messageEl.style.color = "#ff0000";
       } else {
         const doc = snap.docs[0];
         const data = doc.data();
         const docRef = doc.ref;
 
         if (!data.active) {
-          messageEl.textContent = "❌ License is inactive!";
-          messageEl.style.color = "#dc3545";
+          messageEl.textContent = "❌ LICENSE IS INACTIVE!";
+          messageEl.style.color = "#ff0000";
           verifyBtn.disabled = false;
           return;
         }
@@ -813,8 +989,8 @@ setInterval(function () {
 
         if (!alreadyRegistered && usedDeviceCount >= maxDevices) {
           await docRef.update({ active: false });
-          messageEl.textContent = "🚫 License exceeded device limit and has been blocked!";
-          messageEl.style.color = "#dc3545";
+          messageEl.textContent = "🚫 LICENSE EXCEEDED DEVICE LIMIT AND HAS BEEN BLOCKED!";
+          messageEl.style.color = "#ff0000";
         } else {
           if (!alreadyRegistered) {
             await db.collection("devices").add({
@@ -824,19 +1000,20 @@ setInterval(function () {
             });
           }
 
-          messageEl.textContent = "✅ License Verified Successfully!";
-          messageEl.style.color = "#28a745";
+          messageEl.textContent = "✅ LICENSE VERIFIED SUCCESSFULLY!";
+          messageEl.style.color = "#00ff00";
+          messageEl.classList.add("typing");
 
           setTimeout(() => {
             modalBackdrop.remove();
-            licenseVerified(); // <- your callback function here
-          }, 500);
+            document.dispatchEvent(new CustomEvent("license-verified"));
+          }, 1000);
         }
       }
     } catch (e) {
       console.error(e);
-      messageEl.textContent = "⚠️ Error verifying license, try again later.";
-      messageEl.style.color = "#dc3545";
+      messageEl.textContent = "⚠️ ERROR VERIFYING LICENSE, TRY AGAIN LATER.";
+      messageEl.style.color = "#ff0000";
     } finally {
       verifyBtn.disabled = false;
     }
@@ -844,12 +1021,6 @@ setInterval(function () {
 
   inputEl.focus();
 })();
-
-// Callback function to run when license is verified
-function licenseVerified() {
-  console.log("License has been successfully verified!");
-  // You can add further logic here if needed
-}
 
 
 
